@@ -79,6 +79,9 @@ PRODUCT_PACKAGES += \
     FlipFlap
 
 # GPS
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@1.0-impl
+
 PRODUCT_COPY_FILES += \
     device/asus/mofd-common/configs/gps.conf:vendor/etc/gps.conf \
     device/asus/mofd-common/configs/gps.xml:vendor/etc/gps.xml
