@@ -1,0 +1,9 @@
+cc_library_static {
+    name: "libinit_mofd",
+    srcs: ["init_mofd.cpp"],
+    recovery_available: true,
+    whole_static_libs: ["libbase"],
+    include_dirs: [
+        "system/core/init"
+    ]
+}

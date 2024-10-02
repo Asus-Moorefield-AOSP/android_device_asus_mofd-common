@@ -1,4 +1,4 @@
- #
+#
 # Copyright 2013 The Android Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,22 +22,27 @@ $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui
 
 DEVICE_PACKAGE_OVERLAYS := \
     device/asus/mofd-common/overlay
+    
 
-# Art
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-swap=false
-
-# Asus properties
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.build.asus.sku=WW
-
-# Audio
+## Audio
 PRODUCT_PACKAGES += \
-    libtinycompress \
-    libtinyalsa \
     audio.a2dp.default \
+    audio.primary.fugu \
     audio.r_submix.default \
-    audio.usb.default
+    audio.stub.default \
+    audio.usb.default \
+    libaudio-resampler \
+    libtinyalsa
+
+## Audio Effects
+PRODUCT_PACKAGES += \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl
+
+## Audio Policy
+USE_CUSTOM_AUDIO_POLICY := 1
+USE_LEGACY_AUDIO_POLICY := 1
+USE_XML_AUDIO_POLICY_CONF := 1
 
 PRODUCT_COPY_FILES += \
     device/asus/mofd-common/audio/asound.conf:system/etc/asound.conf \
@@ -49,13 +54,6 @@ PRODUCT_COPY_FILES += \
     device/asus/mofd-common/releasetools/mkbootimg:install/bin/mkbootimg \
     device/asus/mofd-common/releasetools/unmkbootimg:install/bin/unmkbootimg \
     device/asus/mofd-common/releasetools/sign_boot.sh:install/bin/sign_boot.sh
-
-# Bluetooth
-PRODUCT_COPY_FILES += \
-    device/asus/mofd-common/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    bt.hfp.WideBandSpeechEnabled=true
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -69,11 +67,6 @@ PRODUCT_PACKAGES += \
     charger \
     charger_res_images
 
-# Dalvik
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.dalvik.vm.isa.arm=x86 \
-    dalvik.vm.implicit_checks=none
-
 # Display
 PRODUCT_PACKAGES += \
     pvr_drv_video
@@ -85,10 +78,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
    ZenfoneDoze
 
-# Factory reset protection
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.frp.pst=/dev/block/by-name/persistent
-
 # Flip Cover App
 PRODUCT_PACKAGES += \
     FlipFlap
@@ -98,19 +87,9 @@ PRODUCT_COPY_FILES += \
     device/asus/mofd-common/configs/gps.conf:system/etc/gps.conf \
     device/asus/mofd-common/configs/gps.xml:system/etc/gps.xml
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.spid.gps.tty=ttyMFD2 \
-    ro.spid.gps.FrqPlan=FRQ_PLAN_26MHZ_2PPM \
-    ro.spid.gps.RfType=GL_RF_47531_BRCM
-
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.gnss.sv.status=true
-
-# Houdini (arm native bridge)
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.enable.native.bridge.exec=1
-
-ADDITIONAL_DEFAULT_PROPERTIES += ro.dalvik.vm.native.bridge=libhoudini.so
+# Init
+PRODUCT_PACKAGES += \
+    libinit_mofd
 
 # Key layout files
 PRODUCT_COPY_FILES += \
@@ -127,12 +106,6 @@ PRODUCT_PACKAGES += \
     lights.moorefield
 
 # Media
-PRODUCT_PROPERTY_OVERRIDES += \
-    drm.service.enabled=true \
-    ro.com.widevine.cachesize=16777216 \
-    media.stagefright.cache-params=10240/20480/15 \
-    media.aac_51_output_enabled=true \
-
 PRODUCT_COPY_FILES += \
     device/asus/mofd-common/media/media_codecs.xml:system/etc/media_codecs.xml \
     device/asus/mofd-common/media/media_profiles.xml:system/etc/media_profiles.xml \
@@ -158,45 +131,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libstagefrighthw
 
-# libmix
+## USB
 PRODUCT_PACKAGES += \
-    libmixvbp_mpeg4 \
-    libmixvbp_h264 \
-    libmixvbp_h264secure \
-    libmixvbp_vc1 \
-    libmixvbp_vp8 \
-    libmixvbp_mpeg2 \
-    libva_videodecoder \
-    libva_videoencoder
-
-PRODUCT_PACKAGES += \
-    libwrs_omxil_common \
-    libwrs_omxil_core_pvwrapped \
-    libOMXVideoDecoderH263 \
-    libOMXVideoDecoderMPEG4 \
-    libOMXVideoDecoderWMV \
-    libOMXVideoDecoderVP8 \
-    libOMXVideoDecoderMPEG2 \
-    libOMXVideoDecoderVP9HWR \
-    libOMXVideoEncoderAVC \
-    libOMXVideoEncoderH263 \
-    libOMXVideoEncoderMPEG4 \
-    libOMXVideoEncoderVP8
-
-# Media: libISV
-PRODUCT_PACKAGES += \
-    libisv_omx_core
+    android.hardware.usb@1.0-service.basic
 
 # PowerHAL
 PRODUCT_PACKAGES += \
-    power.mofd_v1
-
-# Radio
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ril.status.polling.enable=0 \
-    rild.libpath=/system/lib/librapid-ril-core.so \
-    ro.telephony.default_network=9,1 \
-    ro.ril.telephony.mqanelements=5
+    power.mofd_v1 \
+    android.hardware.power@1.0-impl
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -240,9 +182,54 @@ ENABLE_ITUXD := true
 PRODUCT_PACKAGES += \
     ituxd
 
-# IMG graphics
+## Graphics
 PRODUCT_PACKAGES += \
-    hwcomposer.moorefield
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.mapper@2.0-impl \
+    IMG_graphics \
+    hwcomposer.moorefield \
+    libion
+
+## Keymaster
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-impl
+
+## Memtrack
+PRODUCT_PACKAGES += \
+    android.hardware.memtrack@1.0-impl
+
+## OMX
+PRODUCT_PACKAGES += \
+    libgabi++-mfx \
+    libisv_omx_core \
+    libmfxsw32 \
+    libmfx_omx_core \
+    libmfx_omx_components_sw \
+    libmixvbp_mpeg4 \
+    libmixvbp_h264 \
+    libmixvbp_h264secure \
+    libmixvbp_vc1 \
+    libmixvbp_vp8 \
+    libmixvbp_mpeg2 \
+    libmixvbp \
+    libOMXVideoDecoderAVC \
+    libOMXVideoDecoderH263 \
+    libOMXVideoDecoderMPEG2 \
+    libOMXVideoDecoderMPEG4 \
+    libOMXVideoDecoderWMV \
+    libOMXVideoDecoderVP8 \
+    libOMXVideoDecoderVP9HWR \
+    libOMXVideoDecoderVP9Hybrid \
+    libOMXVideoEncoderAVC \
+    libOMXVideoEncoderH263 \
+    libOMXVideoEncoderMPEG4 \
+    libOMXVideoEncoderVP8 \
+    libstlport-mfx \
+    libva_videodecoder \
+    libva_videoencoder \
+    libwrs_omxil_common \
+    libwrs_omxil_core_pvwrapped
 
 # pvr
 PRODUCT_PACKAGES += \
@@ -250,57 +237,20 @@ PRODUCT_PACKAGES += \
 
 # libdrm
 PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl \
     libdrm \
     dristat \
     drmstat
 
 # Permissions
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
-    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
-    frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
-    frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
-    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-    frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
-    frameworks/native/data/etc/android.hardware.sensor.gyroscope.xml:system/etc/permissions/android.hardware.sensor.gyroscope.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/native/data/etc/android.hardware.sensor.stepcounter.xml:system/etc/permissions/android.hardware.sensor.stepcounter.xml \
-    frameworks/native/data/etc/android.hardware.sensor.stepdetector.xml:system/etc/permissions/android.hardware.sensor.stepdetector.xml \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
-    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
-    frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-    frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
-    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
-    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
-    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
+    frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml
 
-# Wifi
-PRODUCT_PACKAGES += \
-    libwpa_client \
-    lib_driver_cmd_bcmdhd \
-    hostapd \
-    wpa_supplicant \
-    wpa_supplicant.conf
+# TV
+# PRODUCT_PACKAGES += \
+#     droidlogic-tv_input \
+#     libstagefright_hdmi
 
-PRODUCT_COPY_FILES += \
-    device/asus/mofd-common/configs/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
-
-$(call inherit-product-if-exists, vendor/asus/mofd-common/mofd-common-vendor.mk)
-
-# stlport required for our LP blobs
-PRODUCT_PACKAGES += \
-    libstlport
-
-# Add WiFi Firmware
-$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4339/device-bcm.mk)
-
-# specific management of sep_policy.conf
-PRODUCT_COPY_FILES += \
-    device/asus/mofd-common/sep_policy.conf:system/etc/security/sep_policy.conf
-
-# hardware optimizations
-#PRODUCT_PROPERTY_OVERRIDES += \
-#    dalvik.vm.isa.x86.features=sse4_2,aes_in,popcnt,movbe

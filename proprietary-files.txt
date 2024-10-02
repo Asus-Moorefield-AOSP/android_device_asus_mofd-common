@@ -247,17 +247,17 @@ etc/camera3_profiles.xml
 etc/camera_profiles.xml
 etc/cms_device_config.xml
 etc/cms_throttle_config.xml
-etc/firmware/isp_acc_chromaproc_css21_2401.bin
-etc/firmware/isp_acc_deghosting_v2_css21_2401.bin
-etc/firmware/isp_acc_lumaproc_css21_2401.bin
-etc/firmware/isp_acc_mfnr_em_css21_2401.bin
-etc/firmware/isp_acc_multires_v2_css21_2401.bin
-etc/firmware/isp_acc_sce_em_css21_2401.bin
-etc/firmware/isp_acc_warping_v2_css21_2401.bin
-etc/firmware/isp_acc_warping_v2_em_css21_2401.bin
-etc/firmware/ov680_fw.bin
-etc/firmware/shisp_2401a0_legacy_v21.bin
-etc/firmware/shisp_2401a0_v21.bin
+etc/firmware/isp_acc_chromaproc_css21_2401.bin:vendor/etc/firmware/isp_acc_chromaproc_css21_2401.bin
+etc/firmware/isp_acc_deghosting_v2_css21_2401.bin:vendor/etc/firmware/isp_acc_deghosting_v2_css21_2401.bin
+etc/firmware/isp_acc_lumaproc_css21_2401.bin:vendor/etc/firmware/isp_acc_lumaproc_css21_2401.bin
+etc/firmware/isp_acc_mfnr_em_css21_2401.bin:vendor/etc/firmware/isp_acc_mfnr_em_css21_2401.bin
+etc/firmware/isp_acc_multires_v2_css21_2401.bin:vendor/etc/firmware/isp_acc_multires_v2_css21_2401.bin
+etc/firmware/isp_acc_sce_em_css21_2401.bin:vendor/etc/firmware/isp_acc_sce_em_css21_2401.bin
+etc/firmware/isp_acc_warping_v2_css21_2401.bin:vendor/etc/firmware/isp_acc_warping_v2_css21_2401.bin
+etc/firmware/isp_acc_warping_v2_em_css21_2401.bin:vendor/etc/firmware/isp_acc_warping_v2_em_css21_2401.bin
+etc/firmware/ov680_fw.bin:vendor/etc/firmware/ov680_fw.bin
+etc/firmware/shisp_2401a0_legacy_v21.bin:vendor/etc/firmware/shisp_2401a0_legacy_v21.bin
+etc/firmware/shisp_2401a0_v21.bin:vendor/etc/firmware/shisp_2401a0_v21.bin
 lib/DataSet/ispDB/ParameterDB.db
 lib/DataSet/ispDB/ParameterDB.db
 lib/DataSet/ditSCidGen/msgchk.db
@@ -347,36 +347,40 @@ vendor/lib/libPVRScopeServices.so
 vendor/lib/libsrv_init.so
 vendor/lib/libufwriter.dbg
 vendor/lib/libufwriter.so
-vendor/lib/egl/libEGL_POWERVR_ROGUE.so
-vendor/lib/egl/libGLESv1_CM_POWERVR_ROGUE.so
-vendor/lib/egl/libGLESv2_POWERVR_ROGUE.so
-vendor/lib/hw/gralloc.moorefield.so
+
+# Kanged from Fugu opr2.170623.027
+bin/houdini|2e539acb403125abd68a92e20192e34d24a08d7b
+etc/binfmt_misc/arm_exe|91477bcdebdfcb1a2062f94da76970cf9a1ca18a
+etc/binfmt_misc/disable|5031aaf7e6de72cb3e0d03005007ef58cc368b8a
+etc/binfmt_misc/arm_dyn|6b9623d49d5e9551da01535850c9d203ed048980
+lib/libhoudini.so|79ba72935b1579111e34b54b57b441f5668de54c
+vendor/lib/egl/libEGL_POWERVR_ROGUE.so|c40c625323bbdd4aa413cc1ffe0f398621de984a
+vendor/lib/egl/libGLESv2_POWERVR_ROGUE.so|12f7445cc4e19fca8de812b7a8b7e51649d1ae3e
+vendor/lib/egl/libGLESv1_CM_POWERVR_ROGUE.so|0f0811f9a1a9297f4f39b57a750b65df080459f6
+vendor/lib/hw/gralloc.moorefield.so|cd9edce027164828e33179e81e3efb593da11ec6
+vendor/lib/hw/vulkan.moorefield.so|9fe8eaaa45de5350065fa114a8b96e8f88a58e5a
+vendor/lib/hw/memtrack.moorefield.so|a2fe90ff493c8147bb5d4d53f045ed778b5425a6
+
 
 # Unknown Firmware
-etc/firmware/if.bin
-etc/firmware/s3202_gff.img
-etc/firmware/s3202_ogs.img
-etc/firmware/s3400_cgs.img
-etc/firmware/s3400_igzo.img
+etc/firmware/if.bin:vendor/etc/firmware/if.bin
+etc/firmware/s3202_gff.img:vendor/etc/firmware/s3202_gff.img
+etc/firmware/s3202_ogs.img:vendor/etc/firmware/s3202_ogs.img
+etc/firmware/s3400_cgs.img:vendor/etc/firmware/s3400_cgs.img
+etc/firmware/s3400_igzo.img:vendor/etc/firmware/s3400_igzo.img
 
 # GPS
 bin/gpsd
 lib/hw/flp.mofd_v1.so
 lib/hw/gps.mofd_v1.so
 
-# Houdini
-etc/binfmt_misc/arm_dyn
-etc/binfmt_misc/arm_exe
-bin/houdini
-lib/libhoudini.so
-
 # Media
-etc/firmware/msvdx.bin.prod
-etc/firmware/msvdx.bin.verf
-etc/firmware/topaz.bin.prod
-etc/firmware/topaz.bin.verf
-etc/firmware/vsp.bin.prod
-etc/firmware/vsp.bin.verf
+etc/firmware/msvdx.bin.prod:vendor/etc/firmware/msvdx.bin.prod
+etc/firmware/msvdx.bin.verf:vendor/etc/firmware/msvdx.bin.verf
+etc/firmware/topaz.bin.prod:vendor/etc/firmware/topaz.bin.prod
+etc/firmware/topaz.bin.verf:vendor/etc/firmware/topaz.bin.verf
+etc/firmware/vsp.bin.prod:vendor/etc/firmware/vsp.bin.prod
+etc/firmware/vsp.bin.verf:vendor/etc/firmware/vsp.bin.verf
 lib/libdx_cc7.so
 lib/libgabi++-mfx.so
 lib/libmdp_omx_core.so
@@ -830,11 +834,11 @@ vendor/firmware/telephony/ze550ml_WW_726x.tlv
 
 # Sensors
 bin/sensorhubd
-etc/firmware/psh.bin.0000.0000.0008.0008.0000.0002
-etc/firmware/psh.bin.0000.0000.0008.0008.0001.0000
-etc/firmware/psh.bin.0000.0000.0008.0008.0001.0001
-etc/firmware/psh.bin.0000.0000.0008.0008.0002.0001
-etc/firmware/psh.bin.zx550ml
+etc/firmware/psh.bin.0000.0000.0008.0008.0000.0002:vendor/etc/firmware/psh.bin.0000.0000.0008.0008.0000.0002
+etc/firmware/psh.bin.0000.0000.0008.0008.0001.0000:vendor/etc/firmware/psh.bin.0000.0000.0008.0008.0001.0000
+etc/firmware/psh.bin.0000.0000.0008.0008.0001.0001:vendor/etc/firmware/psh.bin.0000.0000.0008.0008.0001.0001
+etc/firmware/psh.bin.0000.0000.0008.0008.0002.0001:vendor/etc/firmware/psh.bin.0000.0000.0008.0008.0002.0001
+etc/firmware/psh.bin.zx550ml:vendor/etc/firmware/psh.bin.zx550ml
 lib/hw/sensors.mofd_v1.so
 lib/libcontextarbitor.so
 lib/libsensorhub.so
@@ -845,5 +849,5 @@ bin/thermald
 # WiFi
 etc/wifi/bcmdhd.cal
 etc/wifi/bcmdhd_zx551ml.cal
-etc/firmware/fw_bcmdhd_apsta.bin
-etc/firmware/fw_bcmdhd.bin
+etc/firmware/fw_bcmdhd_apsta.bin:vendor/etc/firmware/fw_bcmdhd_apsta.bin
+etc/firmware/fw_bcmdhd.bin:vendor/etc/firmware/fw_bcmdhd.bin
