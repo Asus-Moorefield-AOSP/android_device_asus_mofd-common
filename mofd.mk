@@ -75,7 +75,7 @@ PRODUCT_COPY_FILES += \
     device/asus/mofd-common/powervr.ini:system/etc/powervr.ini
 
 # Doze
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
    ZenfoneDoze
 
 # Flip Cover App
@@ -188,7 +188,6 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-impl \
     android.hardware.graphics.mapper@2.0-impl \
     IMG_graphics \
-    hwcomposer.moorefield \
     libion
 
 ## Keymaster

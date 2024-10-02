@@ -1,0 +1,14 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+[remote "github"]
+	url = https://github.com/LineageOS/android_device_asus_mofd-common
+	review = review.lineageos.org
+	projectname = LineageOS/android_device_asus_mofd-common
+	fetch = +refs/heads/*:refs/remotes/github/*
+[remote "j0sh"]
+	url = https://github.com/Asus-Moorefield-AOSP/android_device_asus_mofd-common.git
+	fetch = +refs/heads/*:refs/remotes/j0sh/*
+[branch "lineage-18.1"]
+	remote = j0sh
+	merge = refs/heads/lineage-18.1

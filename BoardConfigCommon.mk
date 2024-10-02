@@ -24,9 +24,11 @@ TARGET_CPU_ABI2 := armeabi-v7a
 TARGET_CPU_ABI_LIST := x86,armeabi-v7a,armeabi
 TARGET_CPU_ABI_LIST_32_BIT := x86,armeabi-v7a,armeabi
 
-TARGET_SPECIFIC_HEADER_PATH := $(COMMON_PATH)/include
+TARGET_SPECIFIC_HEADER_PATH := device/asus/mofd-common/include
 
 TARGET_DROIDBOOT_LIBS := libintel_droidboot
+
+TARGET_BOARD_PLATFORM := moorefield
 
 # Adb
 #BOARD_FUNCTIONFS_HAS_SS_COUNT := true
@@ -41,8 +43,8 @@ TARGET_USES_64_BIT_BINDER := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(COMMON_PATH)/bluetooth
-BOARD_CUSTOM_BT_CONFIG := $(COMMON_PATH)/bluetooth/vnd_fugu.txt
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/asus/mofd-common/bluetooth
+BOARD_CUSTOM_BT_CONFIG := device/asus/mofd-common/bluetooth/vnd_fugu.txt
 
 # bootstub as 2nd bootloader
 TARGET_BOOTLOADER_IS_2ND := true
@@ -69,11 +71,11 @@ ifeq ($(HOST_OS),linux)
 endif
 
 # Hardware
-#BOARD_HARDWARE_CLASS := $(COMMON_PATH)/cmhw
+#BOARD_HARDWARE_CLASS := device/asus/mofd-common/cmhw
 
 ## HIDL
-DEVICE_MANIFEST_FILE := $(COMMON_PATH)/manifest.xml
-DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
+DEVICE_MANIFEST_FILE := device/asus/mofd-common/manifest.xml
+DEVICE_MATRIX_FILE := device/asus/mofd-common/compatibility_matrix.xml
 
 # Healthd
 #BOARD_HAL_STATIC_LIBRARIES := libhealthd.moorefield
@@ -82,10 +84,11 @@ DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
 BUILD_ARM_FOR_X86 := true
 
 ## Graphics
-BOARD_EGL_CFG := $(COMMON_PATH)/gpu/egl.cfg
+BOARD_EGL_CFG := device/asus/mofd-common/gpu/egl.cfg
 BOARD_GFX_REV := RGX6400
 BOARD_USES_LIBDRM := true
 ENABLE_IMG_GRAPHICS := true
+BOARD_USES_PRE_ION_X86 := true
 ENABLE_MRFL_GRAPHICS := true
 HWUI_IMG_FBO_CACHE_OPTIM := true
 # DPST
@@ -107,8 +110,8 @@ USE_OPENGL_RENDERER := true
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 
 # Init
-TARGET_INIT_VENDOR_LIB := //$(COMMON_PATH):libinit_mofd
-TARGET_LIBINIT_DEFINES_FILE := $(COMMON_PATH)/init/init_mofd.cpp
+#TARGET_INIT_VENDOR_LIB := libinit_mofd
+#TARGET_LIBINIT_DEFINES_FILE := device/asus/mofd-common/init/init_mofd.cpp
 TARGET_INIT_UMOUNT_AND_FSCK_IS_UNSAFE := true
 TARGET_IGNORE_RO_BOOT_SERIALNO := true
 
@@ -144,7 +147,7 @@ USE_MEDIASDK := true
 MFX_IPP := p8
 
 # Mkbootimg
-BOARD_CUSTOM_BOOTIMG_MK := $(COMMON_PATH)/mkbootimg.mk
+BOARD_CUSTOM_BOOTIMG_MK := device/asus/mofd-common/mkbootimg.mk
 
 # Video Post Processing
 TARGET_HAS_ISV := true
@@ -165,20 +168,20 @@ TARGET_COPY_OUT_VENDOR := vendor
 TARGET_POWERHAL_VARIANT := mofd_v1
 
 ## Properties
-TARGET_SYSTEM_PROP += $(COMMON_PATH)/system.prop
+TARGET_SYSTEM_PROP += device/asus/mofd-common/system.prop
 
 # Radio
-BOARD_PROVIDES_LIBRIL := true
+#BOARD_PROVIDES_LIBRIL := true
 
 # Recovery
 #RECOVERY_VARIANT := twrp
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
-TARGET_RECOVERY_DEVICE_MODULES := libinit_mofd librecovery_updater_mofd thermald
+TARGET_RECOVERY_DEVICE_MODULES := thermald
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 ifeq ($(RECOVERY_VARIANT),twrp)
-TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/recovery/twrp.fstab
+TARGET_RECOVERY_FSTAB := device/asus/mofd-common/recovery/twrp.fstab
 BOARD_HAS_NO_REAL_SDCARD := true
 TW_THEME := portrait_hdpi
 RECOVERY_SDCARD_ON_DATA := true
@@ -187,11 +190,11 @@ TW_INCLUDE_CRYPTO := true
 TW_INCLUDE_NTFS_3G := true
 TW_EXCLUDE_SUPERSU := true
 else
-TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/rootdir/etc/fstab.mofd_v1
+TARGET_RECOVERY_FSTAB := device/asus/mofd-common/rootdir/etc/fstab.mofd_v1
 endif
 
 # Release tools
-TARGET_RELEASETOOLS_EXTENSIONS := $(COMMON_PATH)/releasetools
+TARGET_RELEASETOOLS_EXTENSIONS := device/asus/mofd-common/releasetools
 
 # Security
 BUILD_WITH_SECURITY_FRAMEWORK := chaabi_token
