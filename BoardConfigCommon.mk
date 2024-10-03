@@ -110,8 +110,8 @@ USE_OPENGL_RENDERER := true
 VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
 
 # Init
-#TARGET_INIT_VENDOR_LIB := libinit_mofd
-#TARGET_LIBINIT_DEFINES_FILE := device/asus/mofd-common/init/init_mofd.cpp
+TARGET_INIT_VENDOR_LIB := libinit_mofd
+TARGET_LIBINIT_DEFINES_FILE := device/asus/mofd-common/init/init_mofd.cpp
 TARGET_INIT_UMOUNT_AND_FSCK_IS_UNSAFE := true
 TARGET_IGNORE_RO_BOOT_SERIALNO := true
 
@@ -177,7 +177,7 @@ TARGET_SYSTEM_PROP += device/asus/mofd-common/system.prop
 #RECOVERY_VARIANT := twrp
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
-TARGET_RECOVERY_DEVICE_MODULES := thermald
+TARGET_RECOVERY_DEVICE_MODULES := libinit_mofd librecovery_updater_mofd thermald
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 ifeq ($(RECOVERY_VARIANT),twrp)

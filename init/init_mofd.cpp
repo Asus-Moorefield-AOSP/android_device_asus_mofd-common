@@ -19,13 +19,15 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <android-base/logging.h>
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
 
 #include "log.h"
 #include "property_service.h"
-#include "util.h"
+//#include "util.h"
 #include "vendor_init.h"
+
 
 #define STRCONV_(x)      #x
 #define STRCONV(x) "%" STRCONV_(x) "s"
@@ -115,7 +117,7 @@ static void get_serial()
     if(read_file2(path, buf, sizeof(buf))) {
         if (strlen(buf) > 0) {
             sscanf(buf, STRCONV(BUF_SIZE), value);
-            property_set(SERIAL_PROP,value);
+            android::init::property_set(SERIAL_PROP,value);
         }
     }
 }
@@ -134,7 +136,7 @@ static void configure_zram() {
             int mem = atoi(&buf[strlen(MEMINFO_KEY)]);
             const char *mode = mem < ZRAM_MEM_THRESHOLD ? "true" : "false";
             LOG(INFO) << "Zram: Found total memory to be " << mem << "kb, zram enabled: " << mode << "'\n";
-            property_set(ZRAM_PROP, mode);
+            android::init::property_set(ZRAM_PROP, mode);
             break;
         }
     }
@@ -149,7 +151,7 @@ static void intel_props() {
     for(int i=0; i<12; i++) {
         if(read_file2(intel_path[i], buf, sizeof(buf))) {
             sscanf(buf, STRCONV(BUF_SIZE), value);
-            property_set(intel_prop[i],value);
+            android::init::property_set(intel_prop[i],value);
         }
     }
 
@@ -161,13 +163,13 @@ void set_feq_values()
 
     if(read_file2(MAX_CPU_FREQ, buf, sizeof(buf))) {
 	if ( strncmp(buf, LOW_CPU, strlen(LOW_CPU)) == 0 ) {
-            property_set("ro.sys.perf.device.powersave", "1250000");
-            property_set("ro.sys.perf.device.touchboost", "500000");
-            property_set("ro.sys.perf.device.full", "1833000");
+            android::init::property_set("ro.sys.perf.device.powersave", "1250000");
+            android::init::property_set("ro.sys.perf.device.touchboost", "500000");
+            android::init::property_set("ro.sys.perf.device.full", "1833000");
         } else if ( strncmp(buf, HIGH_CPU, strlen(HIGH_CPU)) == 0 ) {
-            property_set("ro.sys.perf.device.powersave", "1500000");
-            property_set("ro.sys.perf.device.touchboost", "1833000");
-            property_set("ro.sys.perf.device.full", "2333000");
+            android::init::property_set("ro.sys.perf.device.powersave", "1500000");
+            android::init::property_set("ro.sys.perf.device.touchboost", "1833000");
+            android::init::property_set("ro.sys.perf.device.full", "2333000");
         } else {
             LOG(INFO) << "Freq: Failed to get max cpu speed: " << buf << "'\n";
         }
