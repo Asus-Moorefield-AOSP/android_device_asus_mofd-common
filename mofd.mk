@@ -188,7 +188,8 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-impl \
     android.hardware.graphics.mapper@2.0-impl \
     IMG_graphics \
-    libion
+    libion \
+    hwcomposer.moorefield
 
 ## Keymaster
 PRODUCT_PACKAGES += \
