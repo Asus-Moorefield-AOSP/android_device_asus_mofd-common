@@ -24,30 +24,24 @@ DEVICE_PACKAGE_OVERLAYS := \
     device/asus/mofd-common/overlay
     
 
-## Audio
-PRODUCT_PACKAGES += \
-    audio.a2dp.default \
-    audio.primary.fugu \
-    audio.r_submix.default \
-    audio.stub.default \
-    audio.usb.default \
-    libaudio-resampler \
-    libtinyalsa
-
-## Audio Effects
+# Audio
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
-    android.hardware.audio.effect@2.0-impl
+    android.hardware.audio.effect@2.0-impl \
+    libtinycompress \
+    audio.a2dp.default \
+    audio.r_submix.default \
+    audio.usb.default
 
-## Audio Policy
-USE_CUSTOM_AUDIO_POLICY := 1
-USE_LEGACY_AUDIO_POLICY := 1
-USE_XML_AUDIO_POLICY_CONF := 1
+## Audio Effects
+# PRODUCT_PACKAGES += \
+#     android.hardware.audio@2.0-impl \
+#     android.hardware.audio.effect@2.0-impl
 
 PRODUCT_COPY_FILES += \
-    device/asus/mofd-common/audio/asound.conf:system/etc/asound.conf \
-    device/asus/mofd-common/audio/audio_policy.conf:system/etc/audio_policy.conf \
-    device/asus/mofd-common/audio/route_criteria.conf:system/etc/route_criteria.conf
+    device/asus/mofd-common/audio/asound.conf:vendor/etc/asound.conf \
+    device/asus/mofd-common/audio/audio_policy.conf:vendor/etc/audio_policy.conf \
+    device/asus/mofd-common/audio/route_criteria.conf:vendor/etc/route_criteria.conf
 
 # Boot image hackery
 PRODUCT_COPY_FILES += \
@@ -61,7 +55,6 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     camera.device@3.2-impl \
     camera.mofd_v1 \
-    libshim_camera \
     libshim_camera_parameters \
     Snap
 
@@ -75,7 +68,7 @@ PRODUCT_PACKAGES += \
     pvr_drv_video
 
 PRODUCT_COPY_FILES += \
-    device/asus/mofd-common/powervr.ini:system/etc/powervr.ini
+    device/asus/mofd-common/powervr.ini:vendor/etc/powervr.ini
 
 # Doze
 #PRODUCT_PACKAGES += \
@@ -87,8 +80,8 @@ PRODUCT_PACKAGES += \
 
 # GPS
 PRODUCT_COPY_FILES += \
-    device/asus/mofd-common/configs/gps.conf:system/etc/gps.conf \
-    device/asus/mofd-common/configs/gps.xml:system/etc/gps.xml
+    device/asus/mofd-common/configs/gps.conf:vendor/etc/gps.conf \
+    device/asus/mofd-common/configs/gps.xml:vendor/etc/gps.xml
 
 # Init
 PRODUCT_PACKAGES += \
@@ -96,13 +89,13 @@ PRODUCT_PACKAGES += \
 
 # Key layout files
 PRODUCT_COPY_FILES += \
-    device/asus/mofd-common/keylayout/ASUS_TransKeyboard.kl:system/usr/keylayout/ASUS_TransKeyboard.kl \
-    device/asus/mofd-common/keylayout/ftxxxx_ts.kcm:system/usr/keychars/ftxxxx_ts.kcm \
-    device/asus/mofd-common/keylayout/ftxxxx_ts.kl:system/usr/keylayout/ftxxxx_ts.kl \
-    device/asus/mofd-common/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    device/asus/mofd-common/keylayout/lm49453-audio_Intel_MID_Audio_Jack.kl:system/usr/keylayout/lm49453-audio_Intel_MID_Audio_Jack.kl \
-    device/asus/mofd-common/keylayout/Vendor_0b05_Product_17fc.kl:system/usr/keylayout/Vendor_0b05_Product_17fc.kl \
-    device/asus/mofd-common/keylayout/Vendor_0b05_Product_1803.kl:system/usr/keylayout/Vendor_0b05_Product_1803.kl
+    device/asus/mofd-common/keylayout/ASUS_TransKeyboard.kl:vendor/usr/keylayout/ASUS_TransKeyboard.kl \
+    device/asus/mofd-common/keylayout/ftxxxx_ts.kcm:vendor/usr/keychars/ftxxxx_ts.kcm \
+    device/asus/mofd-common/keylayout/ftxxxx_ts.kl:vendor/usr/keylayout/ftxxxx_ts.kl \
+    device/asus/mofd-common/keylayout/gpio-keys.kl:vendor/usr/keylayout/gpio-keys.kl \
+    device/asus/mofd-common/keylayout/lm49453-audio_Intel_MID_Audio_Jack.kl:vendor/usr/keylayout/lm49453-audio_Intel_MID_Audio_Jack.kl \
+    device/asus/mofd-common/keylayout/Vendor_0b05_Product_17fc.kl:vendor/usr/keylayout/Vendor_0b05_Product_17fc.kl \
+    device/asus/mofd-common/keylayout/Vendor_0b05_Product_1803.kl:vendor/usr/keylayout/Vendor_0b05_Product_1803.kl
 
 # Lights
 PRODUCT_PACKAGES += \
@@ -110,13 +103,13 @@ PRODUCT_PACKAGES += \
 
 # Media
 PRODUCT_COPY_FILES += \
-    device/asus/mofd-common/media/media_codecs.xml:system/etc/media_codecs.xml \
-    device/asus/mofd-common/media/media_profiles.xml:system/etc/media_profiles.xml \
-    device/asus/mofd-common/media/mfx_omxil_core.conf:system/etc/mfx_omxil_core.conf \
-    device/asus/mofd-common/media/video_isv_profile.xml:system/etc/video_isv_profile.xml \
-    device/asus/mofd-common/media/wrs_omxil_components.list:system/etc/wrs_omxil_components.list \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
+    device/asus/mofd-common/media/media_codecs.xml:vendor/etc/media_codecs.xml \
+    device/asus/mofd-common/media/media_profiles.xml:vendor/etc/media_profiles.xml \
+    device/asus/mofd-common/media/mfx_omxil_core.conf:vendor/etc/mfx_omxil_core.conf \
+    device/asus/mofd-common/media/video_isv_profile.xml:vendor/etc/video_isv_profile.xml \
+    device/asus/mofd-common/media/wrs_omxil_components.list:vendor/etc/wrs_omxil_components.list \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:vendor/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:vendor/etc/media_codecs_google_video.xml
 
 # Media: SDK and OMX IL components
 PRODUCT_PACKAGES += \
@@ -172,13 +165,14 @@ PRODUCT_PACKAGES += \
 
 # Sensors
 PRODUCT_COPY_FILES += \
-    device/asus/mofd-common/configs/sensor_hal_config_default.xml:system/etc/sensor_hal_config_default.xml
+    device/asus/mofd-common/configs/sensor_hal_config_default.xml:vendor/etc/sensor_hal_config_default.xml
 
 # Shims
 PRODUCT_PACKAGES += \
     libshim_icu \
     libshim_gpsd \
-    libshim_sensors
+    libshim_sensors \
+    libshim_tcs
 
 # Thermal itux
 ENABLE_ITUXD := true
@@ -247,13 +241,15 @@ PRODUCT_PACKAGES += \
 
 # Permissions
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
-    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
-    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
-    frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml
+    frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:vendor/etc/permissions/android.hardware.sensor.accelerometer.xml \
+    frameworks/native/data/etc/android.hardware.sensor.light.xml:vendor/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:vendor/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/native/data/etc/android.hardware.sensor.compass.xml:vendor/etc/permissions/android.hardware.sensor.compass.xml
 
 # TV
 # PRODUCT_PACKAGES += \
 #     droidlogic-tv_input \
 #     libstagefright_hdmi
+
+$(call inherit-product-if-exists, vendor/asus/mofd-common/mofd-common-vendor.mk)
 
