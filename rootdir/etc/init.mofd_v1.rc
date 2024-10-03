@@ -16,7 +16,9 @@ on early-init
     setprop ro.boot.min.cap 0
 
 on init
-    export LD_SHIM_LIBS /system/lib/libicuuc.so|libshim_icu.so:/system/lib/hw/camera.vendor.mofd_v1.so|libshim_camera.so:/system/bin/gpsd|libshim_gpsd.so:/system/lib/hw/sensors.mofd_v1.so|libshim_sensors.so:/system/lib/libcamera_client.so|libshim_camera_parameters.so
+        export LD_SHIM_LIBS /system/lib/libicuuc.so|libshim_icu.so:/vendor/lib/sensors.vendor.mofd_v1.so|libshim_sensors.so/vendor/lib/libtcs.so|libshim_tcs.so
+
+    export LD_PRELOAD "libshim_tcs.so"
 
     write /sys/class/graphics/fbcon/cursor_blink 0
     mkdir /data/system/ 0770 system system
@@ -277,7 +279,7 @@ on property:persist.asus.coverenabled=0
 # start ril-daemon. class main in init.rc
     setprop ro.rild.start 1
 
-service fg_conf /system/bin/fg_conf -w
+service fg_conf /vendor/bin/fg_conf -w
     group system
     oneshot
     disabled
@@ -309,7 +311,7 @@ service drm /system/bin/drmserver
     group drm system inet drmrpc readproc sdcard_r
     writepid /dev/cpuset/foreground/tasks
 
-service sensorhubd /system/bin/sensorhubd
+service vendor.sensorhubd /vendor/bin/sensorhubd
     class main
     user root
     group root system readproc

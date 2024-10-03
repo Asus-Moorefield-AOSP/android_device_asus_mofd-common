@@ -157,33 +157,35 @@ on post-fs-data
     chmod 770 /cache/telephony
 
 # adding Telephony
-service mmgr /system/bin/mmgr -i 1
+service mmgr /vendor/bin/mmgr -i 1
     class late_start
     socket mmgr stream 660 system radio
     user system
     group radio cache inet misc system usb
+    onrestart restart ril-daemon
 
-service mmgr2 /system/bin/mmgr -i 2
+service mmgr2 /vendor/bin/mmgr -i 2
     class late_start
     socket mmgr2 stream 660 system radio
     user system
     group radio cache inet misc system usb
+    onrestart restart ril-daemon
 
 # adding nvm manager
-service nvmmanager /system/bin/nvm_server
+service nvmmanager /vendor/bin/nvm_server
     class core
     socket nvm-ctl stream 660 system radio
     user system
     group radio cache inet misc system
 
 # adding 2nd nvm manager for DSDA
-service nvmmanager2 /system/bin/nvm_server -i 2
+service nvmmanager2 /vendor/bin/nvm_server -i 2
     class core
     socket nvm-ctl2 stream 660 system radio
     user system
     group radio cache inet misc system
 
-service ril-daemon /system/bin/rild
+service ril-daemon /vendor/bin/rild
     class late_start
     socket rild stream 660 root radio
     socket sap_uim_socket1 stream 660 bluetooth bluetooth
@@ -192,7 +194,7 @@ service ril-daemon /system/bin/rild
     group radio cache inet misc audio log qcom_diag readproc wakelock
 
 # adding 2nd vendor ril instance in case of multi sim
-service ril-daemon1 /system/bin/rild -c 2
+service ril-daemon1 /vendor/bin/rild -c 2
     class late_start
     socket rild2 stream 660 root radio
     socket rild-debug2 stream 660 radio system

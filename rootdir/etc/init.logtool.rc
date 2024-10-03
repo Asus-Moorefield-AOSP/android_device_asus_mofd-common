@@ -3,7 +3,7 @@ service init_factorylog /system/bin/sh /system/etc/init_factorylogtool.sh
     disabled
     oneshot
 
-service init_logdate /system/bin/logcontrol logdumps date
+service init_logdate /vendor/bin/logcontrol logdumps date
     disabled
     seclabel u:r:logtoold:s0
     oneshot
@@ -30,38 +30,38 @@ on property:persist.asuslog.facmodeminit=0
 on property:persist.asuslog.fac.init=1
     start init_factorylog
 
-service logMain /system/bin/logcontrol logdumps main
+service logMain /vendor/bin/logcontrol logdumps main
     class main
     seclabel u:r:logtoold:s0
     disabled
 
-service logProcrank /system/bin/logcontrol logdumps procrank
+service logProcrank /vendor/bin/logcontrol logdumps procrank
     class main
     seclabel u:r:logtoold:s0
     disabled
     oneshot 
 
-service logKernel /system/bin/logcontrol logdumps kernel
+service logKernel /vendor/bin/logcontrol logdumps kernel
     class main
     seclabel u:r:logtoold:s0
     disabled
 
-service logRadio /system/bin/logcontrol logdumps radio
+service logRadio /vendor/bin/logcontrol logdumps radio
     class main
     seclabel u:r:logtoold:s0
     disabled
 
-service logEvent /system/bin/logcontrol logdumps event
+service logEvent /vendor/bin/logcontrol logdumps event
     class main
     seclabel u:r:logtoold:s0
     disabled
 
-service logCombine /system/bin/logcontrol logdumps combine
+service logCombine /vendor/bin/logcontrol logdumps combine
     class main
     seclabel u:r:logtoold:s0
     disabled
 
-service logTcpdump /system/bin/logcontrol logdumps tcpdump
+service logTcpdump /vendor/bin/logcontrol logdumps tcpdump
     class main
     seclabel u:r:logtoold:s0
     disabled
@@ -115,13 +115,13 @@ service fdcmts2 /system/bin/fdcmts -m 2
     seclabel u:r:logtoold:s0
     disabled
 
-service fdcmdm1 /system/bin/logcontrol fdcmdm slot1
+service fdcmdm1 /vendor/bin/logcontrol fdcmdm slot1
     class main
     seclabel u:r:logtoold:s0
     socket fdcmdm1 stream 0660 system system
     disabled
 
-service fdcmdm2 /system/bin/logcontrol fdcmdm slot2
+service fdcmdm2 /vendor/bin/logcontrol fdcmdm slot2
     class main
     seclabel u:r:logtoold:s0
     socket fdcmdm2 stream 0660 system system
@@ -202,7 +202,7 @@ service logcommand /system/bin/logcommand
     oneshot
 
 
-service crashlog_config /system/bin/logcontrol crashlogd
+service crashlog_config /vendor/bin/logcontrol crashlogd
      class late_start
      user system
      group system

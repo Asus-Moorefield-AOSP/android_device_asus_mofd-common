@@ -25,6 +25,7 @@ on init
 on boot
     # IMG Graphics specific setup. See also "service pvrsrvctl"
     # The permissions below should be tighter.
+
 #    chown system system /dev/card0
     chown system system /sys/class/backlight/psb-bl/brightness
     chown system system /sys/class/backlight/psb-bl/max_brightness
@@ -36,7 +37,6 @@ on boot
 
     #Change mmc queue nr_requests from 128 to 32 to reduce write latencies
     write /sys/block/mmcblk0/queue/nr_requests 32
-
 
 # Change TCP Net-Core buffers sizes to improve cellular data throughput
      write /proc/sys/net/core/rmem_default 1048576
@@ -503,7 +503,7 @@ on charger
     # The permissions below should be tighter.
     chown system system /dev/card0
 
-    start pvrsrvctl
+    start vendor.pvrsrvctl
     # reduce backlight
     write /sys/class/backlight/psb-bl/brightness 50
     #default setting to enable charging in COS
@@ -513,18 +513,18 @@ on charger
 
     trigger firmware_mounts_complete
 
-service thermald /system/bin/thermald
+service vendor.thermald /vendor/bin/thermald
     class core
     oneshot
     disabled
     user root
 
-service bcu_cpufreqrel /system/bin/bcu_cpufreqrel
+service vendor.bcu_cpufreqrel /vendor/bin/bcu_cpufreqrel
     group system
     oneshot
     disabled
 
-service pvrsrvctl /system/vendor/bin/pvrsrvctl --no-module --start
+service vendor.pvrsrvctl  /vendor/bin/pvrsrvctl --no-module --start
     class core
     oneshot
     user root
