@@ -123,7 +123,10 @@ PRODUCT_PACKAGES += \
 #Nfc
 PRODUCT_PACKAGES += \
     android.hardware.nfc@1.0-impl \
-
+    android.hardware.nfc@1.0-service \
+    com.android.nfc_extras \
+    NfcNci \
+    Tag
 # Media
 PRODUCT_COPY_FILES += \
     device/asus/mofd-common/media/media_codecs.xml:vendor/etc/media_codecs.xml \
@@ -297,8 +300,10 @@ PRODUCT_PACKAGES += \
     lib_driver_cmd_bcmdhd \
     hostapd \
     wificond \
-    wpa_supplicant \
-    wpa_supplicant.conf
+    wpa_supplicant
+
+PRODUCT_COPY_FILES += \
+    device/asus/mofd-common/wpa_supplicant.conf:/vendor/etc/wifi/wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
     device/asus/mofd-common/configs/wpa_supplicant_overlay.conf:vendor/etc/wifi/wpa_supplicant_overlay.conf
