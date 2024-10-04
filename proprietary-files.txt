@@ -182,7 +182,6 @@ vendor/etc/route_criteria.conf
 
 # Bluetooth
 bin/bd_prov
-#vendor/lib/libbt-vendor.so
 
 # Camera
 etc/atomisp/00gc2235.aiqb
