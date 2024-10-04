@@ -119,7 +119,11 @@ PRODUCT_PACKAGES += \
     android.hardware.radio@1.0 \
     android.hardware.radio@1.1 \
     android.hardware.radio.deprecated@1.0 \
-    
+
+#Nfc
+PRODUCT_PACKAGES += \
+    android.hardware.nfc@1.0-impl \
+
 # Media
 PRODUCT_COPY_FILES += \
     device/asus/mofd-common/media/media_codecs.xml:vendor/etc/media_codecs.xml \
