@@ -111,8 +111,7 @@ PRODUCT_COPY_FILES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-impl \
-    lights.moorefield
+    android.hardware.light@2.0-service.mofd
 
 
 
@@ -120,6 +119,7 @@ PRODUCT_PACKAGES += \
     android.hardware.radio@1.0 \
     android.hardware.radio@1.1 \
     android.hardware.radio.deprecated@1.0 \
+    
 # Media
 PRODUCT_COPY_FILES += \
     device/asus/mofd-common/media/media_codecs.xml:vendor/etc/media_codecs.xml \
