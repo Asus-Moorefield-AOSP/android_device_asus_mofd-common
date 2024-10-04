@@ -44,7 +44,7 @@ TARGET_USES_64_BIT_BINDER := true
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/asus/mofd-common/bluetooth
-BOARD_CUSTOM_BT_CONFIG := device/asus/mofd-common/bluetooth/vnd_fugu.txt
+BOARD_HAVE_BLUETOOTH_BCM := true
 
 # bootstub as 2nd bootloader
 TARGET_BOOTLOADER_IS_2ND := true
@@ -78,36 +78,42 @@ DEVICE_MANIFEST_FILE := device/asus/mofd-common/manifest.xml
 DEVICE_MATRIX_FILE := device/asus/mofd-common/compatibility_matrix.xml
 
 # Healthd
-#BOARD_HAL_STATIC_LIBRARIES := libhealthd.moorefield
+BOARD_HAL_STATIC_LIBRARIES := libhealthd.moorefield
 
 # Houdini: enable ARM codegen for x86
 BUILD_ARM_FOR_X86 := true
 
-## Graphics
-BOARD_EGL_CFG := device/asus/mofd-common/gpu/egl.cfg
+# IMG graphics
 BOARD_GFX_REV := RGX6400
-BOARD_USES_LIBDRM := true
 ENABLE_IMG_GRAPHICS := true
-BOARD_USES_PRE_ION_X86 := true
 ENABLE_MRFL_GRAPHICS := true
-HWUI_IMG_FBO_CACHE_OPTIM := true
-# DPST
-INTEL_DPST := true
 INTEL_HWC_MOOREFIELD := true
-INTEL_VA := true
+BOARD_USES_PRE_ION_X86 := true
+HWUI_IMG_FBO_CACHE_OPTIM := true
+TARGET_INTEL_HWCOMPOSER_FORCE_ONLY_ONE_RGB_LAYER := true
+
+# IMG Graphics: System's VSYNC phase offsets in nanoseconds
+SF_START_GRAPHICS_ALLOCATOR_SERVICE := true
+VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
+SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
+
+BOARD_EGL_CFG := device/asus/mofd-common/configs/egl.cfg
+
 MAX_EGL_CACHE_ENTRY_SIZE := 65536
 MAX_EGL_CACHE_SIZE := 1048576
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-OVERRIDE_RS_DRIVER := libPVRRS.so
-SF_START_GRAPHICS_ALLOCATOR_SERVICE := true
-SF_VSYNC_EVENT_PHASE_OFFSET_NS := 5000000
-TARGET_SUPPORT_HDMI_PRIMARY := true
-TARGET_USES_HWC2 := true
-# Enabled to carry out all drawing operations performed
-# on a View's canvas with GPU for 2D rendering pipeline
+
+INTEL_VA := true
+BUILD_WITH_FULL_STAGEFRIGHT := true
+BOARD_USES_VIDEO := true
+
+# Disable IMG RS GPU driver
+# OVERRIDE_RS_DRIVER := libPVRRS.so
+
+# enabled to carry out all drawing operations performed on a View's canvas with GPU for 2D rendering pipeline.
 USE_OPENGL_RENDERER := true
-# System's VSYNC phase offsets in nanoseconds
-VSYNC_EVENT_PHASE_OFFSET_NS := 7500000
+
+# Disable an optimization that causes rendering issues for us
+TARGET_REQUIRES_SYNCHRONOUS_SETSURFACE := true
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_mofd
@@ -151,7 +157,13 @@ BOARD_CUSTOM_BOOTIMG_MK := device/asus/mofd-common/mkbootimg.mk
 
 # Video Post Processing
 TARGET_HAS_ISV := true
+BOARD_GLOBAL_CFLAGS += -DGFX_BUF_EXT
 
+# Shims
+TARGET_LD_SHIM_LIBS := \
+    /system/lib/libicuuc.so|libshim_icu.so \
+    /vendor/lib/sensors.vendor.mofd_v1.so|libshim_sensors.so \
+    /vendor/lib/libtcs.so|libshim_tcs.so
 
 BOARD_GLOBAL_CFLAGS += -DGFX_BUF_EXT
 
@@ -162,7 +174,10 @@ BOARD_FLASH_BLOCK_SIZE := 2048
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 1677721600
 BOARD_VENDORIMAGE_PARTITION_SIZE := 268435456
-BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDORIMAGE_EXTFS_INODE_COUNT   := 4096
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE    := squashfs
+BOARD_VENDORIMAGE_JOURNAL_SIZE        := 0
+BOARD_VENDORIMAGE_SQUASHFS_COMPRESSOR := lz4
 #BOARD_USERIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 
@@ -173,13 +188,13 @@ TARGET_POWERHAL_VARIANT := mofd_v1
 TARGET_SYSTEM_PROP += device/asus/mofd-common/system.prop
 
 # Radio
-#BOARD_PROVIDES_LIBRIL := true
+BOARD_PROVIDES_LIBRIL := true
 
 # Recovery
 #RECOVERY_VARIANT := twrp
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
-TARGET_RECOVERY_DEVICE_MODULES := libinit_mofd librecovery_updater_mofd thermald
+TARGET_RECOVERY_DEVICE_MODULES := libinit_mofd librecovery_updater_mofd
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 ifeq ($(RECOVERY_VARIANT),twrp)
@@ -214,8 +229,8 @@ BOARD_WLAN_DEVICE := bcmdhd
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
 WIFI_DRIVER_FW_PATH_PARAM := "/sys/module/bcmdhd/parameters/firmware_path"
-WIFI_DRIVER_FW_PATH_AP := "/vendor/firmware/fw_bcmdhd_apsta.bin"
-WIFI_DRIVER_FW_PATH_STA := "/vendor/firmware/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_AP := "/vendor/etc/firmware/fw_bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_STA := "/vendor/etc/firmware/fw_bcmdhd.bin"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Use the non-open-source parts, if they're present

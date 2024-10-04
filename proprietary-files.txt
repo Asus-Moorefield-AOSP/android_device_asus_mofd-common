@@ -151,9 +151,9 @@ etc/tuning/audio/layout_topology.xml
 etc/tuning/audio/layout_types.xml
 etc/tuning/audio/layout_ui.xml
 lib/audio.routemanager.so
-lib/hw/audio.codec_offload.mofd_v1.so:vendor/lib/hw/audio.codec_offload.mofd_v1.so
-lib/hw/audio.hdmi.mofd_v1.so:vendor/lib/hw/audio.hdmi.mofd_v1.so
-lib/hw/audio.primary.mofd_v1.so:vendor/lib/hw/audio.primary.mofd_v1.so
+#lib/hw/audio.codec_offload.mofd_v1.so:vendor/lib/hw/audio.codec_offload.mofd_v1.so
+#lib/hw/audio.hdmi.mofd_v1.so:vendor/lib/hw/audio.hdmi.mofd_v1.so
+#lib/hw/audio.primary.mofd_v1.so:vendor/lib/hw/audio.primary.mofd_v1.so
 lib/libaudioresample.so
 lib/libicepower.so
 lib/libtinyprobe.so
@@ -182,7 +182,7 @@ vendor/etc/route_criteria.conf
 
 # Bluetooth
 bin/bd_prov
-vendor/lib/libbt-vendor.so
+#vendor/lib/libbt-vendor.so
 
 # Camera
 etc/atomisp/00gc2235.aiqb
@@ -798,7 +798,7 @@ vendor/firmware/telephony/ze550ml_US_726x.tlv
 vendor/firmware/telephony/ze550ml_WW_726x.tlv
 
 # Sensors
-bin/sensorhubd:vendor/bin/sensorhubd
+#bin/sensorhubd:vendor/bin/sensorhubd
 etc/firmware/psh.bin.0000.0000.0008.0008.0000.0002:vendor/etc/firmware/psh.bin.0000.0000.0008.0008.0000.0002
 etc/firmware/psh.bin.0000.0000.0008.0008.0001.0000:vendor/etc/firmware/psh.bin.0000.0000.0008.0008.0001.0000
 etc/firmware/psh.bin.0000.0000.0008.0008.0001.0001:vendor/etc/firmware/psh.bin.0000.0000.0008.0008.0001.0001
