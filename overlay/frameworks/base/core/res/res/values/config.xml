@@ -246,6 +246,7 @@
         <item>0</item>
     </integer-array>
 
+
     <!-- Default color for notification LED. -->
     <color name="config_defaultNotificationColor">#ff00ff00</color>
 
